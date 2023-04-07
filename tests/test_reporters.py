@@ -12,6 +12,7 @@ def _opts(**kwargs):
     kwargs.setdefault("output_file", None)
     return argparse.Namespace(**kwargs)
 
+
 @pytest.fixture
 def violation():
     return Violation(
@@ -23,6 +24,7 @@ def violation():
         physical_line=None,
     )
 
+
 @pytest.mark.parametrize(
     "format_input, error_str",
     [
@@ -32,10 +34,6 @@ def violation():
         ),
     ],
 )
-def test_make_formatter_custom(
-    violation, format_input, error_str
-):
+def test_make_formatter_custom(violation, format_input, error_str):
     ret = GitHub(_opts(format=format_input))
     assert ret.format(violation) == error_str
-
-

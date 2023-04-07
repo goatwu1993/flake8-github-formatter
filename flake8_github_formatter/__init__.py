@@ -1,5 +1,3 @@
 from .formatters import GitHub
 
-__all__ = [
-    "GitHub"
-]
+__all__ = ["GitHub"]

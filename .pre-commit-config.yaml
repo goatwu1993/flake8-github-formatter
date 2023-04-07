@@ -1,0 +1,50 @@
+---
+exclude: "docs|node_modules|migrations|.tox"
+default_stages: [commit]
+fail_fast: false
+
+repos:
+  - repo: https://github.com/pre-commit/pre-commit-hooks
+    rev: v4.4.0
+    hooks:
+      - id: end-of-file-fixer
+      - id: fix-encoding-pragma
+        args: ["--remove"]
+      - id: check-case-conflict
+      - id: check-docstring-first
+      - id: check-merge-conflict
+        exclude: /README\.rst$|^docs/.*\.rst$
+      - id: check-symlinks
+      - id: check-xml
+      - id: mixed-line-ending
+        args: ["--fix=lf"]
+      - id: detect-private-key
+
+  - repo: https://github.com/charliermarsh/ruff-pre-commit
+    rev: 'v0.0.261'
+    hooks:
+      - id: ruff
+        args: [--fix, --exit-non-zero-on-fix, --format=github]
+
+  - repo: https://github.com/psf/black
+    rev: 23.3.0
+    hooks:
+      - id: black
+
+  - repo: https://github.com/commitizen-tools/commitizen
+    hooks:
+      - id: commitizen
+        stages:
+          - commit-msg
+    rev: v2.42.1
+
+  #- repo: local
+  #  hooks:
+  #  -   id: pyright
+  #      name: pyright
+  #      entry: pyright
+  #      language: node
+  #      pass_filenames: false
+  #      types: [python]
+  #      # Replace the version below with the latest pyright version
+  #      additional_dependencies: ['pyright@1.1.203']
