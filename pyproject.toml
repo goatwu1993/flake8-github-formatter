@@ -1,0 +1,19 @@
+[tool.poetry]
+name = "flake8-github-formatter"
+version = "0.1.0"
+description = "flake8 formatter for github annotation"
+authors = ["goatwu1993 <peteeelol@gmail.com>"]
+license = "MIT"
+readme = "README.md"
+packages = [{include = "flake8_github_formatter"}]
+
+[tool.poetry.dependencies]
+python = "^3.8.1"
+
+
+[tool.poetry.group.dev.dependencies]
+pytest = "^7.2.2"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
