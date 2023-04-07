@@ -2,13 +2,12 @@ import argparse
 import importlib.metadata
 
 import pytest
-
 from flake8.formatting import default
 from flake8.plugins import finder
-from flake8.plugins import reporter
 from flake8.violation import Violation
 
 from flake8_github_formatter.formatters import GitHub
+
 
 def _opts(**kwargs):
     kwargs.setdefault("quiet", 0),
@@ -44,7 +43,6 @@ def reporters():
 
     return {
         "default": _plugin("default", default.Default),
-        "pylint": _plugin("pylint", default.Pylint),
         "pylint": _plugin("pylint", default.Pylint),
         "quiet-filename": _plugin("quiet-filename", default.FilenameOnly),
         "quiet-nothing": _plugin("quiet-nothing", default.Nothing),

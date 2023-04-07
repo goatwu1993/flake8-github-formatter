@@ -1,5 +1,5 @@
 """
-Formatters
+Formatters.
 """
 
 from flake8.formatting.default import SimpleFormatter
