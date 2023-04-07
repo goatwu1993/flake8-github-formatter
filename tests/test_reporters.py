@@ -1,9 +1,6 @@
 import argparse
-import importlib.metadata
 
 import pytest
-from flake8.formatting import default
-from flake8.plugins import finder
 from flake8.violation import Violation
 
 from flake8_github_formatter.formatters import GitHub
@@ -25,30 +22,6 @@ def violation():
         text="line too long (124 > 79 characters)",
         physical_line=None,
     )
-
-@pytest.fixture
-def reporters():
-    def _plugin(name, cls):
-        return finder.LoadedPlugin(
-            finder.Plugin(
-                "flake8",
-                "123",
-                importlib.metadata.EntryPoint(
-                    name, f"{cls.__module__}:{cls.__name__}", "flake8.report"
-                ),
-            ),
-            cls,
-            {"options": True},
-        )
-
-    return {
-        "default": _plugin("default", default.Default),
-        "pylint": _plugin("pylint", default.Pylint),
-        "quiet-filename": _plugin("quiet-filename", default.FilenameOnly),
-        "quiet-nothing": _plugin("quiet-nothing", default.Nothing),
-    }
-
-
 
 @pytest.mark.parametrize(
     "format_input, error_str",
