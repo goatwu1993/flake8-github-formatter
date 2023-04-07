@@ -9,6 +9,7 @@ packages = [{include = "flake8_github_formatter"}]
 
 [tool.poetry.dependencies]
 python = "^3.8.1"
+flake8 = "^3.0.0"
 
 
 [tool.poetry.group.dev.dependencies]
