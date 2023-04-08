@@ -35,6 +35,7 @@ class GitHub(BaseFormatter):
         "line=%(row)d,col=%(col)d,endLine=%(row)d,endColumn=%(col)d"
         "::%(code)s %(text)s"
     )
+    git_relative_path = False
 
     def format(self, error: Violation) -> Optional[str]:
         """Format and write error out.
