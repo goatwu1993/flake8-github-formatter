@@ -18,10 +18,10 @@ logger = logging.getLogger(__name__)
 
 
 @lru_cache(maxsize=1)
-def root():
+def root(file_path):
     """returns the absolute path of the repository root."""
     try:
-        base = check_output("git rev-parse --show-toplevel", shell=True)
+        base = check_output("git rev-parse --show-toplevel", shell=True, cwd=file_path)
     except CalledProcessError:
         raise IOError("Current working directory is not a git repository")
     return base.decode("utf-8").strip()
@@ -69,6 +69,12 @@ class GitHub(BaseFormatter):
     def parse_options(cls, option_manager: OptionManager) -> None:
         if option_manager.git_relative_path in TRUSIES:
             cls.git_relative_path = True
+            origin_file_path = (
+                Path(".")
+                if isinstance(option_manager.filename, list)
+                else option_manager.filename
+            )
+            cls.git_root = root(origin_file_path)
         else:
             if option_manager.git_relative_path not in FALSIES:
                 logger.warning(
@@ -77,6 +83,6 @@ class GitHub(BaseFormatter):
                 )
             cls.git_relative_path = False
 
-    @staticmethod
-    def to_repo_relative_path(filename):
-        return Path(filename).resolve().relative_to(Path(root()))
+    @classmethod
+    def to_repo_relative_path(cls, filename):
+        return Path(filename).resolve().relative_to(Path(cls.git_root))
