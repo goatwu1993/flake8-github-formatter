@@ -13,6 +13,8 @@ from .base import BaseUtilsReporter
 class GitHubErrorLevelEnum(str, Enum):
     ERROR = "error"
     NOTICE = "notice"
+    DEBUG = "debug"
+    WARNING = "warning"
 
 
 class GitHub(BaseUtilsReporter):
