@@ -3,7 +3,7 @@ import argparse
 import pytest
 from flake8.violation import Violation
 
-from flake8_github_formatter.formatters import GitHub
+from flake8_utils_reporters.formatters import GitHub
 
 
 def _opts(**kwargs):

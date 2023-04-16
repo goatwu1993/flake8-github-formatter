@@ -17,31 +17,11 @@ FALSIES = ["0", "False", "false", False]
 logger = logging.getLogger(__name__)
 
 
-class GitHub(BaseFormatter):
-    """GitHub formatter for Flake8."""
-
-    error_format = (
-        "::error title=Flake8 %(code)s,file=%(path)s,"
-        "line=%(row)d,col=%(col)d,endLine=%(row)d,endColumn=%(col)d"
-        "::%(code)s %(text)s"
-    )
-    git_relative_path = False
+class BaseUtilsReporter(BaseFormatter):
+    """Base Formatter for This Package."""
 
     def format(self, error: Violation) -> Optional[str]:
-        """Format and write error out.
-
-        If an output filename is specified, write formatted errors to that
-        file. Otherwise, print the formatted error to standard out.
-        """
-        return self.error_format % {
-            "code": error.code,
-            "text": error.text,
-            "path": self.to_repo_relative_path(error.filename)
-            if self.git_relative_path
-            else error.filename,
-            "row": error.line_number,
-            "col": error.column_number,
-        }
+        raise NotImplementedError
 
     @classmethod
     def add_options(cls, option_manager: OptionManager) -> None:
