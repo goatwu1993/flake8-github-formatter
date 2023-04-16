@@ -11,6 +11,10 @@ from .base import BaseUtilsReporter
 
 
 class GitHubErrorLevelEnum(str, Enum):
+    """
+    Check https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions.
+    """
+
     ERROR = "error"
     NOTICE = "notice"
     DEBUG = "debug"
