@@ -2,6 +2,7 @@
 Formatters.
 """
 import logging
+from functools import lru_cache
 from pathlib import Path
 from typing import Optional
 
@@ -24,6 +25,7 @@ class BaseUtilsReporter(BaseFormatter):
         raise NotImplementedError
 
     @classmethod
+    @lru_cache(maxsize=1)
     def add_options(cls, option_manager: OptionManager) -> None:
         option_manager.add_option(
             "--git-relative-path",

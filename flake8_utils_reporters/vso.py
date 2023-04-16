@@ -1,5 +1,5 @@
 """
-GitHub Formatters.
+VSO Formatters.
 """
 
 from enum import Enum
@@ -10,33 +10,27 @@ from flake8.violation import Violation
 from .base import BaseUtilsReporter
 
 
-class GitHubErrorLevelEnum(str, Enum):
+class VsoErrorLevelEnum(str, Enum):
     """
-    Check https://docs.github.com/en/actions/using-workflows/workflow-commands-for-github-actions.
+    Check https://learn.microsoft.com/en-us/azure/devops/pipelines/scripts/logging-commands?view=azure-devops&tabs=bash.
     """
 
     ERROR = "error"
-    NOTICE = "notice"
-    DEBUG = "debug"
     WARNING = "warning"
 
 
-class GitHub(BaseUtilsReporter):
+class Vso(BaseUtilsReporter):
     """GitHub formatter for Flake8."""
 
-    reporter_prefix = "github"
-    error_format = (
-        "::%(error_level)s title=Flake8 %(code)s,file=%(path)s,"
-        "line=%(row)d,col=%(col)d,endLine=%(row)d,endColumn=%(col)d"
-        "::%(code)s %(text)s"
-    )
+    reporter_prefix = "vso"
+    error_format = "##vso[task.logissue type=%(error_level)s;sourcepath=%(path)s;linenumber=%(row)d;columnnumber=%(col)d;code=%(code)s;]%(text)s"
 
     @classmethod
     def add_options(cls, option_manager) -> None:
         option_manager.add_option(
             f"--{cls.reporter_prefix}-error-level",
-            default=GitHubErrorLevelEnum.ERROR.value,
-            choices=[e.value for e in GitHubErrorLevelEnum],
+            default=VsoErrorLevelEnum.ERROR.value,
+            choices=[e.value for e in VsoErrorLevelEnum],
             help=f"{cls.reporter_prefix}-error-level",
         )
 

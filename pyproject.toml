@@ -19,7 +19,9 @@ importlib-metadata = { version = "^6.1.0", python = "<3.10" }
 [tool.poetry.plugins] # Optional super table
 
 [tool.poetry.plugins."flake8.report"]
+base = "flake8_utils_reporters:BaseUtilsReporter"
 github = "flake8_utils_reporters:GitHub"
+vso = "flake8_utils_reporters:Vso"
 
 [build-system]
 requires = ["poetry-core"]
